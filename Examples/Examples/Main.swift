@@ -6,19 +6,60 @@
 //
 
 import ComposableArchitecture
+import IDFA
 import SwiftUI
+import UIClient_Toast
 
 struct MainState: Equatable {
     fileprivate let testURL: String = "https://google.com"
-//    @BindableState var route: Route?
-//    enum Route: Equatable {
-//
-//    }
+
+    let items: IdentifiedArrayOf<Section> = [
+        .init(title: "UIClient", items: [
+            .init(text: "Copy random text", action: .didTap(.copyToClipboard)),
+            .init(text: "Rate us", action: .didTap(.rateUs))
+        ]),
+        .init(title: "URLs", items: [
+            .init(text: "Open URL in app", action: .didTap(.openUrlInApp)),
+            .init(text: "Open URL in safari", action: .didTap(.openUrlInSafari))
+        ]),
+        .init(title: "System Vibration", items: [
+            .init(text: "Strong", action: .didTap(.systemVibration(.strong))),
+            .init(text: "Strong Boom", action: .didTap(.systemVibration(.strongBoom))),
+            .init(text: "Weak", action: .didTap(.systemVibration(.weak))),
+            .init(text: "Weak Boom", action: .didTap(.systemVibration(.weakBoom)))
+        ]),
+        .init(title: "Haptic Vibration", items: [
+            .init(text: "Impact 1.0", action: .didTap(.hapticVibration(.impact))),
+            .init(text: "Impact 0.7", action: .didTap(.hapticVibration(.impactIntensifity(0.7)))),
+            .init(text: "Impact 0.5", action: .didTap(.hapticVibration(.impactIntensifity(0.5)))),
+            .init(text: "Impact 0.3", action: .didTap(.hapticVibration(.impactIntensifity(0.3)))),
+            .init(text: "Notification Error", action: .didTap(.hapticVibration(.notification(.error)))),
+            .init(text: "Notification Success", action: .didTap(.hapticVibration(.notification(.success)))),
+            .init(text: "Notification Warning", action: .didTap(.hapticVibration(.notification(.warning)))),
+            .init(text: "Selection", action: .didTap(.hapticVibration(.selection)))
+        ]),
+        .init(title: "IDFA", items: [
+            .init(text: "Request IDFA", action: .didTap(.requestIDFA))
+        ])
+    ]
+
+    struct Section: Equatable, Identifiable {
+        let id: UUID = .init()
+        let title: String
+        let items: [Item]
+
+        struct Item: Equatable, Identifiable {
+            let id: UUID = .init()
+            let text: String
+            let action: MainAction
+        }
+    }
 }
 
 enum MainAction: BindableAction, Equatable {
     case binding(BindingAction<MainState>)
     case didTap(Button)
+    case response(Response)
 
     enum Button: Equatable {
         case copyToClipboard
@@ -28,12 +69,20 @@ enum MainAction: BindableAction, Equatable {
 
         case rateUs
 
+        case requestIDFA
+
         case systemVibration(UIClient.VibrationType.System)
         case hapticVibration(UIClient.VibrationType.Haptic)
+    }
+
+    enum Response: Equatable {
+        case idfa(String?)
     }
 }
 
 struct MainEnvironment {
+    var idfa: IDFA = .live
+    var mainQueue: AnySchedulerOf<DispatchQueue> = .main
     var uiClient: UIClient = .live
 }
 
@@ -57,11 +106,20 @@ let MainReducer = Reducer<MainState, MainAction, MainEnvironment>.combine(
             return env.uiClient.rateUs()
                 .fireAndForget()
 
+        case .didTap(.requestIDFA):
+            return env.idfa.request()
+                .map({ .response(.idfa($0)) })
+                .receive(on: env.mainQueue)
+                .eraseToEffect()
+
         case let .didTap(.hapticVibration(value)):
             return env.uiClient.vibrate(.haptic(value)).fireAndForget()
 
         case let .didTap(.systemVibration(value)):
             return env.uiClient.vibrate(.system(value)).fireAndForget()
+
+        case let .response(.idfa(value)):
+            return env.uiClient.showAlert(.init(value ?? "no idfa")).fireAndForget()
 
         default: break
         }
@@ -92,81 +150,14 @@ struct MainView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             List {
-                Section(header: Text("UIClient")) {
-
-                    Item(text: "Copy random text",
-                         viewStore: viewStore,
-                         action: .didTap(.copyToClipboard))
-
-                    Item(text: "Rate us",
-                         viewStore: viewStore,
-                         action: .didTap(.rateUs))
-                }
-
-                Section(header: Text("URLs")) {
-
-                    Item(text: "Open URL in app",
-                         viewStore: viewStore,
-                         action: .didTap(.openUrlInApp))
-
-                    Item(text: "Open URL in safari",
-                         viewStore: viewStore,
-                         action: .didTap(.openUrlInSafari))
-                }
-
-                Section(header: Text("System Vibration")) {
-
-                    Item(text: "Strong",
-                         viewStore: viewStore,
-                         action: .didTap(.systemVibration(.strong)))
-
-                    Item(text: "Strong Boom",
-                         viewStore: viewStore,
-                         action: .didTap(.systemVibration(.strongBoom)))
-
-                    Item(text: "Weak",
-                         viewStore: viewStore,
-                         action: .didTap(.systemVibration(.weak)))
-
-                    Item(text: "Weak boom",
-                         viewStore: viewStore,
-                         action: .didTap(.systemVibration(.weakBoom)))
-                }
-
-                Section(header: Text("Haptic Vibration")) {
-
-                    Item(text: "Impact 1.0",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.impact)))
-
-
-                    Item(text: "Impact 0.7",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.impactIntensifity(0.7))))
-
-
-                    Item(text: "Impact 0.5",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.impactIntensifity(0.5))))
-
-                    Item(text: "Impact 0.3",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.impactIntensifity(0.3))))
-
-                    Item(text: "Notification Error",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.notification(.error))))
-                    Item(text: "Notification Success",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.notification(.success))))
-
-                    Item(text: "Notification Warning",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.notification(.warning))))
-
-                    Item(text: "Selection",
-                         viewStore: viewStore,
-                         action: .didTap(.hapticVibration(.selection)))
+                ForEach(viewStore.items, id: \.id) { section in
+                    Section(header: Text(section.title)) {
+                        ForEach(section.items, id: \.id) { item in
+                            Item(text: item.text,
+                                 viewStore: viewStore,
+                                 action: item.action)
+                        }
+                    }
                 }
             }
             .listStyle(GroupedListStyle())

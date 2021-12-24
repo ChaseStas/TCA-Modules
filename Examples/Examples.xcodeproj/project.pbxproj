@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		095BF6812775FF8600FC3BC4 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 095BF6802775FF8600FC3BC4 /* README.md */; };
+		095BF68327760AAD00FC3BC4 /* IDFA in Frameworks */ = {isa = PBXBuildFile; productRef = 095BF68227760AAD00FC3BC4 /* IDFA */; };
+		095BF68527760CB400FC3BC4 /* UIClient+Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 095BF68427760CB400FC3BC4 /* UIClient+Toast */; };
 		09A698E02775D0E30017895B /* ExamplesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A698DF2775D0E30017895B /* ExamplesApp.swift */; };
 		09A698E42775D0E50017895B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A698E32775D0E50017895B /* Assets.xcassets */; };
 		09A698E72775D0E50017895B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A698E62775D0E50017895B /* Preview Assets.xcassets */; };
@@ -30,7 +32,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				095BF68327760AAD00FC3BC4 /* IDFA in Frameworks */,
 				09A698FA2775D8310017895B /* UIClient in Frameworks */,
+				095BF68527760CB400FC3BC4 /* UIClient+Toast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,6 +104,8 @@
 			name = Examples;
 			packageProductDependencies = (
 				09A698F92775D8310017895B /* UIClient */,
+				095BF68227760AAD00FC3BC4 /* IDFA */,
+				095BF68427760CB400FC3BC4 /* UIClient+Toast */,
 			);
 			productName = Examples;
 			productReference = 09A698DC2775D0E30017895B /* Examples.app */;
@@ -347,6 +353,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		095BF68227760AAD00FC3BC4 /* IDFA */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IDFA;
+		};
+		095BF68427760CB400FC3BC4 /* UIClient+Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "UIClient+Toast";
+		};
 		09A698F92775D8310017895B /* UIClient */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = UIClient;
