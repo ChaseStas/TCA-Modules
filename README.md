@@ -2,9 +2,17 @@
 Modules to use with The Composable Architecture
 You can run Examples project to see how it works.
 
+
+## IDFA
+
+| Name  | Description |
+| ------------- | ------------- |
+| request | Request ATT on iOS 14.5 and above  |
+| status  | Return current status for ATT |
+
 ## UIClient
 
-You can use UIClient functionality inside your reducer
+Module to communicate with UI and UIKit functionality 
 
 | Name  | Description |
 | ------------- | ------------- |
