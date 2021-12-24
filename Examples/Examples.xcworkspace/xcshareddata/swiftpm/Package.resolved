@@ -56,6 +56,15 @@
         }
       },
       {
+        "package": "TCA-Modules",
+        "repositoryURL": "https://github.com/ChaseStas/TCA-Modules",
+        "state": {
+          "branch": "main",
+          "revision": "660fea8cd3f1b98ab8f7be001807dbea4acce365",
+          "version": null
+        }
+      },
+      {
         "package": "Toast",
         "repositoryURL": "https://github.com/scalessec/Toast-Swift",
         "state": {
