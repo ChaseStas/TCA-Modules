@@ -12,9 +12,9 @@ private struct Dependencies {
 private var dependency: Dependencies?
 
 extension ApphudClient {
-    static let live: Self = {
+    static public let live: Self = {
         .init(
-            delegate: { id in
+            delegate: {
                 .run { subscriber in
                     let delegate = ApphudDelegateClass(subscriber: subscriber)
                     Apphud.setDelegate(delegate)
