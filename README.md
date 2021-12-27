@@ -2,6 +2,20 @@
 Modules to use with The Composable Architecture
 You can run Examples project to see how it works.
 
+## Apphud
+
+| Name  | Description |
+| ------------- | ------------- |
+| delegate |  Subscribe to delegate changes  |
+| hasActiveSubscription  | True if has active subscription |
+| isNonRenewingPurchaseActive  |  True if has non renewing purchase |
+| paywalls  | Return array of ApphudPaywall |
+| purchase  | Purchase ApphudProduct product |
+| restore  | Restore purchase |
+| setIDFA  | Set IDFA for Apphud |
+| start  | Call on launch to initialize Apphud |
+| submitPushNotificationsToken  | Submit push notification token to Apphud |
+| subscribeToReceivePaywalls  | Subscribe to notification to receive paywall updates |
 
 ## IDFA
 
