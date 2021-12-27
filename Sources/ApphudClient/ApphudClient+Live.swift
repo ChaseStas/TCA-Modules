@@ -2,6 +2,7 @@ import ApphudSDK
 import ComposableArchitecture
 import Combine
 import Foundation
+import StoreKit
 
 private struct Dependencies {
     let subscriber: Effect<ApphudDelegateAction, Never>.Subscriber
@@ -98,5 +99,9 @@ fileprivate class ApphudDelegateClass: ApphudDelegate {
 
     func apphudSubscriptionsUpdated(_ subscriptions: [ApphudSubscription]) {
         subscriber.send(.subscriptionsUpdates(subscriptions))
+    }
+
+    func apphudDidFetchStoreKitProducts(_ products: [SKProduct]) {
+        subscriber.send(.didFetchStoreKitProducts(products))
     }
 }

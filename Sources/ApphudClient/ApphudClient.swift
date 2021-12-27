@@ -2,9 +2,11 @@ import ApphudSDK
 import ComposableArchitecture
 import Combine
 import Foundation
+import StoreKit
 
 enum ApphudDelegateAction: Equatable {
     case didChangeUserID(_ userID: String)
+    case didFetchStoreKitProducts(_ identifiers: [SKProduct])
     case nonRenewingPurchasesUpdated(_ purchases: [ApphudNonRenewingPurchase])
     case subscriptionsUpdates(_ subscriptions: [ApphudSubscription])
 }
