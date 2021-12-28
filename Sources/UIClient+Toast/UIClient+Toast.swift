@@ -5,8 +5,8 @@ import UIKit
 import UIClient
 #endif
 
-public extension UIClient {
-    func showAlert(_ model: ToastModel) -> Effect<Never, Never> {
+extension UIClient {
+    public func showToast(_ model: ToastModel) -> Effect<Never, Never> {
         .fireAndForget {
             #if RELEASE
             #else
