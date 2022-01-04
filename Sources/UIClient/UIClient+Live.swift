@@ -38,6 +38,13 @@ extension UIClient {
                     }
                 }
             }
+        }, openReviewInAppStore: { appId in
+            .fireAndForget {
+                guard let url = URL(string: "itms-apps://itunes.apple.com/app/id\(appId)?action=write-review") else { return }
+                if UIApplication.shared.canOpenURL(url) {
+                    UIApplication.shared.open(url)
+                }
+            }
         }, rateUs: {
             .fireAndForget {
                 if #available(iOS 14.0, *) {

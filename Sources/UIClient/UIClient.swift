@@ -45,6 +45,9 @@ public struct UIClient {
     // Open url in app or in safari app
     public var openURL: (String, URLOpenType) -> Effect<Never, Never>
 
+    // Open app store app with review view
+    public var openReviewInAppStore: (_ appId: String) -> Effect<Never, Never>
+
     // Present system rate us view
     public var rateUs: () -> Effect<Never, Never>
 

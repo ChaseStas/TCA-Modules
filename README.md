@@ -33,6 +33,7 @@ Module to communicate with UI and UIKit functionality
 | copyToClipboard | Copy string to clipboard  |
 | dismissKeyboard  | Dismiss keyboard if opened |
 | openURL  | Open URL inside application in Safari controller or redirects to default browser |
+| openReviewInAppStore  | Open App store app with review page |
 | rateUs  | Present system 'rate us' view |
 | showToast  | Present toast |
 | vibrate  | Play vibration with selected type |
