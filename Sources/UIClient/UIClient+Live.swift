@@ -45,6 +45,11 @@ extension UIClient {
                     UIApplication.shared.open(url)
                 }
             }
+        }, presentShareActivity: { items in
+            .fireAndForget {
+                let vc = UIActivityViewController(activityItems: items, applicationActivities: nil)
+                UIApplication.topViewController()?.present(vc, animated: true, completion: nil)
+            }
         }, rateUs: {
             .fireAndForget {
                 if #available(iOS 14.0, *) {

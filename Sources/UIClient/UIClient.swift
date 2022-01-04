@@ -48,6 +48,9 @@ public struct UIClient {
     // Open app store app with review view
     public var openReviewInAppStore: (_ appId: String) -> Effect<Never, Never>
 
+    // Present UIActivityViewController
+    public var presentShareActivity: ([Any]) -> Effect<Never, Never>
+
     // Present system rate us view
     public var rateUs: () -> Effect<Never, Never>
 
