@@ -16,7 +16,8 @@ struct MainState: Equatable {
     let items: IdentifiedArrayOf<Section> = [
         .init(title: "UIClient", items: [
             .init(text: "Copy random text", action: .didTap(.copyToClipboard)),
-            .init(text: "Rate us", action: .didTap(.rateUs))
+            .init(text: "Rate us", action: .didTap(.rateUs)),
+            .init(text: "Share activity", action: .didTap(.shareActivity)),
         ]),
         .init(title: "URLs", items: [
             .init(text: "Open URL in app", action: .didTap(.openUrlInApp)),
@@ -66,10 +67,10 @@ enum MainAction: BindableAction, Equatable {
 
         case openUrlInApp
         case openUrlInSafari
-
         case rateUs
 
         case requestIDFA
+        case shareActivity
 
         case systemVibration(UIClient.VibrationType.System)
         case hapticVibration(UIClient.VibrationType.Haptic)
@@ -112,6 +113,9 @@ let MainReducer = Reducer<MainState, MainAction, MainEnvironment>.combine(
                 .receive(on: env.mainQueue)
                 .eraseToEffect()
 
+        case .didTap(.shareActivity):
+            return env.uiClient.presentShareActivity(["http://apple.com/"]).fireAndForget()
+
         case let .didTap(.hapticVibration(value)):
             return env.uiClient.vibrate(.haptic(value)).fireAndForget()
 
@@ -119,7 +123,7 @@ let MainReducer = Reducer<MainState, MainAction, MainEnvironment>.combine(
             return env.uiClient.vibrate(.system(value)).fireAndForget()
 
         case let .response(.idfa(value)):
-            return env.uiClient.showAlert(.init(value ?? "no idfa")).fireAndForget()
+            return env.uiClient.showToast(.init(value ?? "no idfa")).fireAndForget()
 
         default: break
         }

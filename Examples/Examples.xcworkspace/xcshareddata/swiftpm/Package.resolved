@@ -2,6 +2,15 @@
   "object": {
     "pins": [
       {
+        "package": "ApphudSDK",
+        "repositoryURL": "https://github.com/apphud/ApphudSDK",
+        "state": {
+          "branch": null,
+          "revision": "d1bfa600b6e98ffcfd8227720be3fcfe68b1b0e7",
+          "version": "2.5.0"
+        }
+      },
+      {
         "package": "combine-schedulers",
         "repositoryURL": "https://github.com/pointfreeco/combine-schedulers",
         "state": {
@@ -60,7 +69,7 @@
         "repositoryURL": "https://github.com/ChaseStas/TCA-Modules",
         "state": {
           "branch": "main",
-          "revision": "660fea8cd3f1b98ab8f7be001807dbea4acce365",
+          "revision": "8333f3898b85fe2c23289359878d0a306d93169c",
           "version": null
         }
       },
