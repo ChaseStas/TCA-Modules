@@ -24,6 +24,25 @@ You can run Examples project to see how it works.
 | request | Request ATT on iOS 14.5 and above  |
 | status  | Return current status for ATT |
 
+## RemoteNotificationClient
+
+| Name  | Description |
+| ------------- | ------------- |
+| isRegister | Check if is registered for remote notifications  |
+| register  | Register for remote notifications via UIApplication |
+| unregister  | Register for remote notifications via UIApplication |
+
+## UserNotificationClient
+
+| Name  | Description |
+| ------------- | ------------- |
+| add | Add UNNotificationRequest  |
+| delegate  | UNUserNotificationCenter delegate  |
+| getNotificationSettings  |  |
+| removeDeliveredNotificationsWithIdentifiers  |  |
+| removePendingNotificationRequestsWithIdentifiers  |  |
+| requestAuthorization  | Request authorization for notifications |
+
 ## UIClient
 
 Module to communicate with UI and UIKit functionality 
