@@ -15,6 +15,12 @@ let package = Package(
         .library(name: "IDFA",
                  targets: ["IDFA"]),
         .library(
+            name: "RemoteNotificationsClient",
+            targets: ["RemoteNotificationsClient"]),
+        .library(
+            name: "UserNotificationClient",
+            targets: ["UserNotificationClient"]),
+        .library(
             name: "UIClient",
             targets: ["UIClient"]),
         .library(
@@ -39,6 +45,16 @@ let package = Package(
             ]),
         .target(
             name: "IDFA",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]),
+        .target(
+            name: "RemoteNotificationsClient",
+            dependencies: [
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+            ]),
+        .target(
+            name: "UserNotificationClient",
             dependencies: [
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ]),
